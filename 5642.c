@@ -2,7 +2,7 @@
 int main(int argc, char** argv)
 {
     register int test_case, i, answer, cmp;
-    int T,N,num;
+    int T,N,num; 
     scanf("%d",&T);
     for (test_case = 1; test_case <= T; test_case++){
         scanf("%d",&N);
