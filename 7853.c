@@ -13,9 +13,11 @@ int main(void){
         do {
             c[idx++] = getchar();
         }while('a'<=c[idx-1]&&c[idx-1]<='z');
-        answer *= c[0]!=c[1]&&c[idx-2]!=c[idx-3] ? 4 : c[0]==c[1]&&c[idx-2]==c[idx-3] ? 1 : 2;
+        answer <<= c[0]!=c[1]&&c[idx-2]!=c[idx-3] ? 2 : c[0]==c[1]&&c[idx-2]==c[idx-3] ? 0 : 1;
         for(i=1;i<idx-2;i++)
-            answer = c[i-1]!=c[i]&&c[i-1]!=c[i+1]&&c[i]!=c[i+1] ? answer*3%MOD : c[i-1]==c[i]&&c[i]==c[i+1] ? answer*1%MOD : answer*2%MOD;
+            answer = c[i-1]!=c[i]&&c[i-1]!=c[i+1]&&c[i]!=c[i+1] ?
+            (answer+(answer<<1))%MOD : c[i-1]==c[i]&&c[i]==c[i+1] ?
+                              answer : (answer<<1)%MOD;
         
         printf("#%d %d\n",test_case,answer%MOD);
     }
