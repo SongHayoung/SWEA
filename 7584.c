@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+//2020.02.17 기준 1등
 int main(void){
     register int test_case;
     int T;
