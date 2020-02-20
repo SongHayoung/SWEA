@@ -1,13 +1,7 @@
-#include <iostream>
+#include <stdio.h>
 #include <string>
-#include <vector>
 using namespace std;
-int A, B, C, D;
-vector< vector<vector<vector<vector<string> > > > > DP(21,
-        vector<vector<vector<vector<string> > > >(21,
-        vector<vector<vector<string> > >(21,
-        vector<vector<string> > (21,
-        vector<string>(2)))));
+string DP[21][21][21][21][2];
 void make_str(string s, int a, int b, int c, int d, int last){
     DP[a][b][c][d][last]=s;
     switch(s[s.length()-1]){
@@ -28,15 +22,13 @@ void make_str(string s, int a, int b, int c, int d, int last){
     }
 }
 int main(int argc, char** argv) {
-    register int i;
+    register int i,A,B,C,D;
     int TC;
     scanf("%d",&TC);
     make_str("0",0,0,0,0,0);
     make_str("1",0,0,0,0,1);
     for (i = 1; i<=TC; i++) {
         scanf("%d %d %d %d",&A,&B,&C,&D);
-        DP[A][B][C][D][0].empty() ? (DP[A][B][C][D][1].empty() ? printf("#%d impossible\n",i) :
-                                     printf("#%d %s\n",i,DP[A][B][C][D][1].c_str())) :
-                                     printf("#%d %s\n",i,DP[A][B][C][D][0].c_str());
+        DP[A][B][C][D][0].empty() ? (DP[A][B][C][D][1].empty() ? printf("#%d impossible\n",i) : printf("#%d %s\n",i,DP[A][B][C][D][1].c_str())) : printf("#%d %s\n",i,DP[A][B][C][D][0].c_str());
     }
 }
