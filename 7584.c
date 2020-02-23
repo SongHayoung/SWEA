@@ -29,7 +29,7 @@ int main(void){
  printf("#%d 0\n",test_case);
  else
  printf("#%d 1\n",test_case);
- }
+ } 
  return 0;
  }
  */
