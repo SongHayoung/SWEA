@@ -14,7 +14,7 @@ int readINT() {
 		ret = (ret << 3) + (ret << 1) + (N & 0b1111);    N = gc();
 	} while (48 <= N);
 	return ret;
-}
+} 
 void writeANSWER(int tc) {
 	long rev = 0, count = 0;
 	pc(0x23);
