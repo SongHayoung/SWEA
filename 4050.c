@@ -12,22 +12,22 @@ int readINT() {
 	int N = gc(), ret = 0;
 	do {
 		ret = (ret << 3) + (ret << 1) + (N & 0b1111);    N = gc();
-	} while ('0' <= N);
+	} while (48 <= N);
 	return ret;
 }
 void writeANSWER(int tc) {
 	long rev = 0, count = 0;
-	pc('#');
+	pc(0x23);
 	while (!(tc % 10)) { count++; tc /= 10; } 
 	while (tc) { rev = (rev << 3) + (rev << 1) + tc % 10; tc /= 10; } 
 	while (rev) { pc(rev % 10 | 0b110000); rev /= 10; }
-	while (count--) pc(48);
-	count = 0;	pc(' ');
+	while (count--) pc(0x30);
+	count = 0;	pc(0x20);
 	while (!(answer % 10)) { count++; answer /= 10; }
 	while (answer) { rev = (rev << 3) + (rev << 1) + answer % 10; answer /= 10; }
 	while (rev) { pc(rev % 10 | 0b110000); rev /= 10; }
-	while (count--) pc(48);
-	pc('\n');
+	while (count--) pc(0x30);
+	pc(0x0A);
 	return;
 }
 int compare(const void *a, const void *b) {
