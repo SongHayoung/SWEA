@@ -11,12 +11,19 @@ int readINT() {
 	} while ('0' <= N);
 	return ret;
 }
-void writeLong(long n) {
+void writeANSWER(int tc, long n) {
 	long rev = 0, count = 0;
-	while (!(n % 10)) { count++; n /= 10; } //obtain the count of the number of 0s
-	while (n) { rev = (rev << 3) + (rev << 1) + n % 10; n /= 10; }  //store reverse of N in rev
+	pc('#');
+	while (!(tc % 10)) { count++; tc /= 10; } 
+	while (tc) { rev = (rev << 3) + (rev << 1) + tc % 10; tc /= 10; } 
 	while (rev) { pc(rev % 10 | 0b110000); rev /= 10; }
 	while (count--) pc('0');
+	count = 0;	pc(' ');
+	while (!(n % 10)) { count++; n /= 10; } 
+	while (n) { rev = (rev << 3) + (rev << 1) + n % 10; n /= 10; }  
+	while (rev) { pc(rev % 10 | 0b110000); rev /= 10; }
+	while (count--) pc('0');
+	pc('\n');
 	return;
 }
 int compare(const void *a, const void *b) {
@@ -29,11 +36,9 @@ int main(int argc, char** argv) {
 	for (tc = 1; tc <= T; tc++) {
 		N = readINT();
 		answer = 0;
-		for (int i = 0; i < N; i++)clothes[i] = readINT();
+		for (int i = 0; i < N; i++) clothes[i] = readINT();
 		qsort(clothes, N, sizeof(int), compare);
 		for (int i = N - 1; i >= 0; i--) if ((N - i) % 3) answer += clothes[i];
-		pc('#');  writeLong(tc); pc(' ');
-		writeLong(answer);
-		pc('\n');
+		writeANSWER(tc, answer);
 	}
 }
