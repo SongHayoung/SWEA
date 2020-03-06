@@ -1,8 +1,9 @@
-#include <iostream>
+#include <cstdio>
 #include <memory.h>
 #include <numeric>
 #include <queue>
 #define gc() getchar_unlocked()
+#define pc(x) putchar_unlocked(x)
 #define inrange(a, x, b)  ((((a)<=(x))&&((x)<(b))) ? (1) : (0))
 #define SWAP(a, b) a^=b; b^=a; a^=b;
 #define MIN(a,b) ((a)>(b))?(b):(a)
@@ -31,6 +32,20 @@ inline int fRI(){
     }while('0'<=N&&N<='9');
     return ret;
 }
+inline void fWA(int tc) {
+    int r = 0, c = 0;
+    pc(0x23);
+    while (!(tc % 10)) { c++; tc /= 10; }
+    while (tc) { r = ADD3((r << 3), (r << 1), tc % 10); tc /= 10; }
+    while (r) { pc(r % 10 | 0b110000); r /= 10; }
+    while (c--) pc(0x30); pc(0x20);
+    c = 0;
+    if (!answer) { pc(0x30); pc(0x0A); return; }
+    while (!(answer % 10)) { c++; answer /= 10; }
+    while (answer) { r = ADD3((r << 3), (r << 1), answer % 10); answer /= 10; }
+    while (r) { pc(r % 10 | 0b110000); r /= 10; }
+    while (c--) pc(0x30); pc(0x0A);
+}
 void DFS(int _N, int map[15][12], int cols[15]) {
     answer = MIN(answer, accumulate(cols, cols + W, 0));
     if(!_N||!answer) return;
@@ -57,11 +72,13 @@ void DFS(int _N, int map[15][12], int cols[15]) {
                     qx = q.front().x;
                     qrange = q.front().range;
                     q.pop();
-                    for (register int i = 1; i <= qrange; i++) {
-                        for (register int j = 0; j < 4; j++) {
-                            nx = ADD2(qx ,dx[j] * i);
-                            ny = ADD2(qy ,dy[j] * i);
-                            if (inrange(0,nx,W) && inrange(0,ny,H) && _map[ny][nx]) {
+                    for (register int i = 0; i < 4; i++) {
+                        for (register int j = 1; j <= qrange; j++) {
+                            nx = ADD2(qx ,dx[i] * j);
+                            ny = ADD2(qy ,dy[i] * j);
+                            if(!(inrange(0,nx,W)&&inrange(0,ny,H)))
+                                break;
+                            if (_map[ny][nx]) {
                                 if(_map[ny][nx]>1) q.emplace(nx, ny, _map[ny][nx] - 1);
                                 _map[ny][nx] = 0;
                                 _cols[nx]--;
@@ -70,7 +87,7 @@ void DFS(int _N, int map[15][12], int cols[15]) {
                     }
                 }
                 for (register int _x = 0; _x < W; _x++) {
-                    //if(!_cols[_x]) continue;
+                    if(!_cols[_x]) continue;
                     for (register int _y = H - 2; _y >= 0; _y--) {
                         if (_map[_y][_x]) {
                             swap_y = _y;
@@ -82,6 +99,7 @@ void DFS(int _N, int map[15][12], int cols[15]) {
                     }
                 }
                 DFS(_N - 1, _map, _cols);
+                if(!answer) return;
                 break;
             }
         }
@@ -91,7 +109,7 @@ void DFS(int _N, int map[15][12], int cols[15]) {
 int main(int argc, char **argv) {
     register int tc = 1, T = fRI();
     int map[15][12], cols[12];
-    for (; tc <= T; tc++) {
+    for (; tc <= T;) {
         N = fRI(); W = fRI(); H = fRI();
         memset(cols, 0, sizeof(int)*W);
         answer = 987654321;
@@ -101,6 +119,6 @@ int main(int argc, char **argv) {
                 if (map[i][j]) cols[j]++;
             }
         DFS(N, map, cols);
-        printf("#%d %d\n", tc, answer);
+        fWA(tc++);
     }
 }
