@@ -24,7 +24,7 @@ int DP[2001][2001] = {0, }, price[27];
 int main(int argc, char** argv){
     register int L, K, tc=1, T, temp;
     T=fRI();
-    for(;tc<=T;tc++){
+    for(;tc<=T;tc++){ 
         L=fRI(); K=fRI();
         temp = 0;
         do{
