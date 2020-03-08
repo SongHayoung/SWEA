@@ -67,7 +67,7 @@ void DFS(int cur, int used, int map[12][12], int wires) {
 		if(flag) DFS(cur + 1, used + flag, _map, _wires);
 		NP(numOfcore, cur, used, numOfused) return;
 	}
-}
+} 
 int main(void) {
 	reg int tc = 1, T = fRI() , i, j;
 	int map[12][12];
