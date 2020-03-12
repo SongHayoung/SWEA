@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <memory.h>
-
 #define gc() getchar_unlocked()
 #define pc(x) putchar_unlocked(x)
 #define ll long long
