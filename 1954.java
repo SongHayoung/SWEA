@@ -27,7 +27,6 @@ public class Solution {
                     dir = (++dir) % 4;
                     y = y + dy[dir];
                     x = x + dx[dir];
-                    System.out.println(y + " " + x);
                     if(0 > x || x >= N || 0 > y || y >= N || map[y][x] != -1)
                         break;
                 }
