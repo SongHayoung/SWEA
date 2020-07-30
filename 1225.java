@@ -1,45 +1,47 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.*;
 
 public class Solution {
-    public static Queue<Integer> q = new LinkedList<>();
+    public static int[] arr = new int[8];
+
     public static void main(String[] args) throws Exception {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int T = 10, tc = 1;
-        while(T-- != 0){
+        int T = 10, tc = 1, minVal;
+        while (T-- != 0) {
             bf.readLine();
+            minVal = Integer.MAX_VALUE;
             StringTokenizer st = new StringTokenizer(bf.readLine());
-            for(int i = 0; i < 8; ++i) {
-                q.add(fastParseInt(st.nextToken()));
+            for (int i = 0; i < 8; ++i) {
+                minVal = Math.min(minVal, (arr[i] = fastParseInt(st.nextToken())));
+            }
+            minVal = minVal - (minVal % 15) - 15;
+            for (int i = 0; i < 8; ++i) {
+                arr[i] -= minVal;
             }
             boolean flag = true;
-            while(flag) {
-                for(int i = 1; flag && i <=5; ++i){
-                    int n = q.remove() - i;
-                    if(n <= 0) {
-                        q.add(0);
+            int idx = 0;
+            while (flag) {
+                for (int i = 1; flag && i <= 5; ++i, idx = (idx + 1) % 8) {
+                    arr[idx] -= i;
+                    if (arr[idx] <= 0) {
                         flag = false;
-                    } else {
-                        q.add(n);
+                        arr[idx] = 0;
                     }
                 }
             }
-            bw.write("#" + tc ++ + " ");
-            for(int i = 0; i < 8; ++i)
-                bw.write(q.remove() + " ");
+            bw.write("#" + tc++ + " ");
+            for (int i = 0; i < 8; ++i, idx = (idx + 1) % 8)
+                bw.write(arr[idx] + " ");
             bw.write("\n");
         }
         bw.flush();
     }
-    public static int fastParseInt(String str){
+
+    public static int fastParseInt(String str) {
         int ret = 0;
-        for(int i = 0; i < str.length(); ++i)
-            ret = (ret<<3) + (ret<<1) + (str.charAt(i) & 0b1111);
+        for (int i = 0; i < str.length(); ++i)
+            ret = (ret << 3) + (ret << 1) + (str.charAt(i) & 0b1111);
         return ret;
     }
-
 }
